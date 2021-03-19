@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\LabelCreator.csproj" />
+    <ProjectReference Include="..\LabelCreatorLib\LabelCreator.csproj" />
     <ProjectReference Include="..\LabelPreviewerUtil\LabelPreviewerUtil.csproj" />
   </ItemGroup>
 
