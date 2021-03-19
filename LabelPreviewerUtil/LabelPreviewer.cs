@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,9 +14,9 @@ namespace LabelPreviewerUtil
     public class LabelPreviewer
     {
 
-        public static void Preview(IBitmapConvertible image)
+        public static void Preview(params IBitmapConvertible[] images)
         {
-            Bitmap[] bitmaps = new Bitmap[] { image.GetBitmap() };
+            Bitmap[] bitmaps = images.Select(i => i.GetBitmap()).ToArray();
             string[] filesPaths = FileManager.SaveBitmaps(bitmaps);
             ShowWindow(filesPaths);
         }
