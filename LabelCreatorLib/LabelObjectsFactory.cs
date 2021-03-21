@@ -17,10 +17,21 @@ namespace LabelCreator
             return new LabelObject(width, height, color);
         }
 
+
+
         public static TextObject NewText(string text, Font font, Rectangle boundries)
         {
             return new TextObject(text, font, boundries);
         }
+        
+
+
+        public static RectangleObjectBase NewRectangle(Rectangle boundries)
+        {
+            return new RectangleObjectBase(boundries);
+        }
+
+
 
         public static ImageObject NewImage(Bitmap image, int positionX, int positionY)
         {

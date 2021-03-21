@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using LabelCreator.Interfaces;
 
-namespace LabelCreator.Models
+namespace LabelCreator
 {
     public enum ImageRotation
     {
@@ -76,13 +76,22 @@ namespace LabelCreator.Models
                         break;
                 }
 
-                graphics.DrawImage(_image,
+                graphics.DrawImage(GetScaledImage(_image, Width, Height),
                                    new RectangleF(x, y, Width, Height),
                                    new RectangleF(0, 0, Width, Height),
                                    GraphicsUnit.Pixel);
             }
         }
 
+
+        private Bitmap GetScaledImage(Bitmap image, int maxWidth, int maxHeight)
+        {
+            var newImage = new Bitmap(maxWidth, maxHeight);
+            using (var graphics = Graphics.FromImage(newImage))
+                graphics.DrawImage(image, 0, 0, maxWidth, maxHeight);
+
+            return newImage;
+        }
 
     }
 }

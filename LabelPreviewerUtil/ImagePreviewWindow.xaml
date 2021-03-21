@@ -5,17 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LabelPreviewerUtil"
         mc:Ignorable="d"
-        Title="ImagePreviewWindow" Height="500" Width="400">
+        Title="ImagePreviewWindow" 
+        MinHeight="500" MinWidth="400"
+        MaxHeight="600" MaxWidth="500"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen">
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="150"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -31,12 +36,6 @@
                Grid.ColumnSpan="7"
                x:Name="ImageBox"/>
 
-        <ComboBox x:Name="PrintersComboBox"
-                  Grid.Column="1"
-                  Grid.Row="3"
-                  SelectedIndex="0"
-                  VerticalContentAlignment="Center" />
-
         <Button x:Name="PreviousButton"
                 Background="Transparent"
                 BorderThickness="0"
@@ -44,7 +43,7 @@
                 Foreground="#5E96AE"
                 Content="&lt;"
                 VerticalContentAlignment="Center"
-                Grid.Column="3"
+                Grid.Column="2"
                 Grid.Row="3"
                 Click="PreviousButton_Click">
 
@@ -83,7 +82,7 @@
                 FontSize="20"
                 Foreground="#5E96AE"
                 Content="&gt;"
-                Grid.Column="5"
+                Grid.Column="6"
                 Grid.Row="3"
                 Click="NextButton_Click">
 

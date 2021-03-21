@@ -19,9 +19,12 @@ namespace LabelCreator
                 graphics.FillRectangle(color, 0, 0, width, height);
         }
 
-        public void Paste(IPasteable obj)
+        public void Paste(params IPasteable[] objects)
         {
-            obj.Paste(_label);
+            foreach (var obj in objects)
+            {
+                obj.Paste(_label);
+            }
         }
 
 
