@@ -15,7 +15,7 @@ namespace LabelCreator
         Deg270
     }
 
-    public class ImageObject : IPasteable
+    public class ImageObject : IPasteable, IBitmapConvertible
     {
 
         private Bitmap _image;
@@ -26,6 +26,7 @@ namespace LabelCreator
         public int Width { get; private set; }
         public int Height { get; private set; }
 
+
         internal ImageObject(Bitmap image, int positionX, int positionY)
         {
             _image = image;
@@ -35,63 +36,94 @@ namespace LabelCreator
             Height = image.Height;
         }
 
+
         public ImageObject Scale(float percentOfOryginal)
         {
             Width = (int)Math.Round(percentOfOryginal / 100 * Width);
             Height = (int)Math.Round(percentOfOryginal / 100 * Height);
+
+            var newBitmap = new Bitmap(Width, Height);
+            using (var graphics = Graphics.FromImage(newBitmap))
+                graphics.DrawImage(_image, 0, 0, Width, Height);
+
+            _image = newBitmap;
+
             return this;
         }
+
 
         public ImageObject Rotate(ImageRotation rotation)
         {
             _rotation = rotation;
-            return this;
-        }
+            Bitmap newBitmap;
 
-        void IPasteable.Paste(Bitmap label)
-        {
-            using (Graphics graphics = Graphics.FromImage(label))
+            if (rotation == ImageRotation.None || rotation == ImageRotation.Deg180)
+                newBitmap = new Bitmap(Width, Height);
+            else
+                newBitmap = new Bitmap(Height, Width);
+
+            using (Graphics graphics = Graphics.FromImage(newBitmap))
             {
-                int x = _positionX;
-                int y = _positionY;
+                int x = 0;
+                int y = 0;
 
                 switch (_rotation)
                 {
                     case ImageRotation.None:
                         break;
                     case ImageRotation.Deg90:
-                        x = _positionY;
-                        y = -(_positionX + Height);
+                        y = -Height;
                         graphics.RotateTransform(90f);
                         break;
                     case ImageRotation.Deg180:
-                        x = -(_positionX + Width);
-                        y = -(_positionY + Height);
+                        x = -Width;
+                        y = -Height;
                         graphics.RotateTransform(180f);
                         break;
                     case ImageRotation.Deg270:
-                        x = -(_positionY + Width);
-                        y = _positionX;
+                        x = -Width;
                         graphics.RotateTransform(270f);
                         break;
                 }
 
-                graphics.DrawImage(GetScaledImage(_image, Width, Height),
+                graphics.DrawImage(_image,
                                    new RectangleF(x, y, Width, Height),
+                                   new RectangleF(0, 0, Width, Height),
+                                   GraphicsUnit.Pixel);
+            }
+            _image = newBitmap;
+
+            return this;
+        }
+
+
+        public Bitmap GetBitmap()
+        {
+            return _image;
+        }
+
+
+        void IPasteable.Paste(Bitmap label)
+        {
+            using (Graphics graphics = Graphics.FromImage(label))
+            {
+                graphics.DrawImage(_image,
+                                   new RectangleF(_positionX, _positionY, Width, Height),
                                    new RectangleF(0, 0, Width, Height),
                                    GraphicsUnit.Pixel);
             }
         }
 
 
-        private Bitmap GetScaledImage(Bitmap image, int maxWidth, int maxHeight)
-        {
-            var newImage = new Bitmap(maxWidth, maxHeight);
-            using (var graphics = Graphics.FromImage(newImage))
-                graphics.DrawImage(image, 0, 0, maxWidth, maxHeight);
+        //private Bitmap GetScaledImage(Bitmap image, int maxWidth, int maxHeight)
+        //{
+        //    var newImage = new Bitmap(maxWidth, maxHeight);
+        //    using (var graphics = Graphics.FromImage(newImage))
+        //        graphics.DrawImage(image, 0, 0, maxWidth, maxHeight);
 
-            return newImage;
-        }
+        //    return newImage;
+        //}
+
 
     }
 }
