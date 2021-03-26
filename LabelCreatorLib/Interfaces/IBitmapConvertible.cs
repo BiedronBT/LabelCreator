@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 
-namespace LabelCreator.Interfaces
+namespace LabelCreator
 {
     public interface IBitmapConvertible
     {

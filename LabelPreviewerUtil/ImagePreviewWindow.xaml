@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:LabelPreviewerUtil"
         mc:Ignorable="d"
         Title="ImagePreviewWindow" 
-        MinHeight="500" MinWidth="400"
-        MaxHeight="600" MaxWidth="500"
-        SizeToContent="WidthAndHeight"
+        MaxHeight="900"
+        MaxWidth="900"
         WindowStartupLocation="CenterScreen">
-    
+
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>

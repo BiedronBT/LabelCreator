@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
-using LabelCreator.Interfaces;
+using LabelCreator;
 
 namespace LabelPreviewerUtil
 {
@@ -20,6 +20,7 @@ namespace LabelPreviewerUtil
             string[] filesPaths = FileManager.SaveBitmaps(bitmaps);
             ShowWindow(filesPaths);
         }
+
 
         private static void ShowWindow(string[] filesPaths)
         {

@@ -1,5 +1,5 @@
 ﻿using System.Drawing;
-using LabelCreator.Interfaces;
+
 
 namespace LabelCreator
 {

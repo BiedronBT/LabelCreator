@@ -29,7 +29,10 @@ namespace LabelPreviewerUtil
             InitializeComponent();
 
             SetStateOfNavigationButtons();
-            ImageBox.Source = new BitmapImage(new Uri(labelsPaths[selectedLabelIndex]));
+            BitmapImage bitmapImage = new BitmapImage(new Uri(labelsPaths[selectedLabelIndex]));
+
+
+            ImageBox.Source = bitmapImage;
         }
 
         private async void PreviousButton_Click(object sender, RoutedEventArgs e)
@@ -37,7 +40,8 @@ namespace LabelPreviewerUtil
             selectedLabelIndex--;
             SetStateOfNavigationButtons();
             await FadeOutImageAsync();
-            ImageBox.Source = new BitmapImage(new Uri(labelsPaths[selectedLabelIndex]));
+            var image = new BitmapImage(new Uri(labelsPaths[selectedLabelIndex]));
+            ImageBox.Source = image;
             await FadeInImageAsync();
         }
 
@@ -46,7 +50,8 @@ namespace LabelPreviewerUtil
             selectedLabelIndex++;
             SetStateOfNavigationButtons();
             await FadeOutImageAsync();
-            ImageBox.Source = new BitmapImage(new Uri(labelsPaths[selectedLabelIndex]));
+            var image = new BitmapImage(new Uri(labelsPaths[selectedLabelIndex]));
+            ImageBox.Source = image;
             await FadeInImageAsync();
         }
 
@@ -71,7 +76,6 @@ namespace LabelPreviewerUtil
 
         private async Task FadeInImageAsync()
         {
-
             DoubleAnimationUsingKeyFrames animation = new DoubleAnimationUsingKeyFrames();
             animation.Duration = TimeSpan.FromMilliseconds(300);
             animation.KeyFrames.Add(new SplineDoubleKeyFrame(1, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(300)),
@@ -80,5 +84,6 @@ namespace LabelPreviewerUtil
             ImageBox.BeginAnimation(OpacityProperty, animation);
             await Task.Delay(300);
         }
+
     }
 }
