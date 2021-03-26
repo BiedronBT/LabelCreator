@@ -37,20 +37,21 @@ namespace LabelCreator
         }
 
 
-        public ImageObject Scale(float percentOfOryginal)
+        public ImageObject Scale(float scale)
         {
-            Width = (int)Math.Round(percentOfOryginal / 100 * Width);
-            Height = (int)Math.Round(percentOfOryginal / 100 * Height);
-
-            var newBitmap = new Bitmap(Width, Height);
-            using (var graphics = Graphics.FromImage(newBitmap))
-                graphics.DrawImage(_image, 0, 0, Width, Height);
-
-            _image = newBitmap;
-
+            int width = (int)Math.Round(scale * Width);
+            int height = (int)Math.Round(scale * Height);
+            SetNewImageSize(width, height);
             return this;
         }
 
+        public ImageObject Scale(float widthScale, float heightScale)
+        {
+            int width = (int)Math.Round(widthScale * Width);
+            int height = (int)Math.Round(heightScale * Height);
+            SetNewImageSize(width, height);
+            return this;
+        }
 
         public ImageObject Rotate(ImageRotation rotation)
         {
@@ -102,6 +103,16 @@ namespace LabelCreator
             return _image;
         }
 
+        private void SetNewImageSize(int width, int height)
+        {
+            Width = width;
+            Height = height;
+            var newBitmap = new Bitmap(Width, Height);
+            using (var graphics = Graphics.FromImage(newBitmap))
+                graphics.DrawImage(_image, 0, 0, Width, Height);
+
+            _image = newBitmap;
+        }
 
         void IPasteable.Paste(Bitmap label)
         {
