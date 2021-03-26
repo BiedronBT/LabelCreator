@@ -27,11 +27,16 @@ namespace LabelCreator
             }
         }
 
-
         public LabelObject SetResolution(float xDpi, float yDpi)
         {
             _xDpi = xDpi;
             _yDpi = yDpi;
+            return this;
+        }
+
+        public LabelObject RotateFlip(RotateFlipType rotateFlipType)
+        {
+            _label.RotateFlip(rotateFlipType);
             return this;
         }
 
@@ -41,5 +46,7 @@ namespace LabelCreator
                 _label.SetResolution((float)_xDpi, (float)_yDpi);
             return _label;
         }
+
+
     }
 }
